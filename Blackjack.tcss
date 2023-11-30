@@ -1,0 +1,10 @@
+Container{
+    background: red;
+    
+    align: center middle;
+}
+#play{
+    
+    margin: 1;
+    padding: 1;
+}

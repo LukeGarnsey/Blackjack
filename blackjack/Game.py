@@ -1,14 +1,26 @@
+from textual.app import ComposeResult
 from card_deck.Deck import DeckBuilder
-from blackjack.Dealer import  Dealer
+from blackjack.Dealer import Dealer
 from blackjack.Player import Player
-
-class Game:
+from textual.widgets import Static, Button, Label
+from .view.GameView import GameView
+class Game():
     import time
     def __init__(self) -> None:
         self.deck = DeckBuilder().create_deck()
         self.deck.shuffle()
         self.dealer = Dealer(self.deck)
         self.player = Player(10)
+    
+    def mount_view(self):
+        # self.query_one("#dealer", DealerView).set_model(self.dealer)
+        self.view = GameView(id = "gameview")
+        self.view.set_model(self)
+
+        self.view.mount(self.dealer.mount_view())
+
+        return self.view
+    
     def another_hand(self):
         loop = True
         while loop:
